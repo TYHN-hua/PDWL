@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: '品达物流',
+  title: '元峰',
 
   /**
    * @type {boolean} true | false

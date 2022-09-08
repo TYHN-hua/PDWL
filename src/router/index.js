@@ -1,13 +1,16 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+// 引入多个模块的规则
+import baseinfoRouter from './modules/baseinfo.js'
+export const asyncRoutes = [baseinfoRouter]
 Vue.use(Router)
 
 /* Layout */
 import Layout from '@/layout'
 
 // 引入自己组件的路由，放到这个数组里
-const asyncRouter = []
+// const asyncRouter = []
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -65,7 +68,7 @@ export const constantRoutes = [
 const createRouter = () => new Router({
   // mode: 'history', // require service support
   scrollBehavior: () => ({ y: 0 }),
-  routes: [...constantRoutes, ...asyncRouter]
+  routes: [...constantRoutes]
 })
 
 const router = createRouter()
