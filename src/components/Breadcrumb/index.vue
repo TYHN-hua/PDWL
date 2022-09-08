@@ -64,6 +64,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 .app-breadcrumb.el-breadcrumb {
   display: inline-block;
   font-size: 14px;
@@ -75,4 +76,5 @@ export default {
     cursor: text;
   }
 }
+
 </style>

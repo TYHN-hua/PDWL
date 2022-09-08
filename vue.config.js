@@ -36,6 +36,12 @@ module.exports = {
       warnings: false,
       errors: true
     },
+    proxy: {
+      '/api': {
+        target: 'http://www-wms-java.itheima.net/',
+        changeOrigin: true
+      }
+    }
     // before: require('./mock/mock-server.js') 注释模拟数据
   },
   configureWebpack: {

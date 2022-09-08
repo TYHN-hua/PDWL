@@ -2,8 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 // 引入多个模块的规则
-import baseinfoRouter from './modules/baseinfo.js'
-export const asyncRoutes = [baseinfoRouter]
+// import baseinfoRouter from './modules/baseinfo.js'
+// export const asyncRoutes = [baseinfoRouter]
 Vue.use(Router)
 
 /* Layout */
@@ -59,6 +59,50 @@ export const constantRoutes = [
       component: () => import('@/views/dashboard/index'),
       meta: { title: 'Dashboard', icon: 'dashboard' }
     }]
+  },
+  {
+    path: 'baseinfo',
+    name: 'baseinfo',
+    component: Layout,
+    redirect: '/baseinfo/warehousemanagement',
+    meta: { title: '基础信息管理', icon: 'dashboard' },
+    children: [{
+      path: '/baseinfo/warehousemanagement',
+      name: 'warehousemanagement',
+      component: () => import('@/views/baseinfo/WarehouseManagement'),
+      meta: { title: '仓库管理' }
+    },
+    {
+      path: '/baseinfo/reservoirmanagement',
+      name: 'warehousemanagement',
+      component: () => import('@/views/baseinfo/ReservoirManagement'),
+      meta: { title: '库区管理' }
+    },
+    {
+      path: '/baseinfo/binlocationmanagement',
+      name: 'binlocationmanagement',
+      component: () => import('@/views/baseinfo/BinLocationManagement'),
+      meta: { title: '库位管理' }
+    },
+    {
+      path: '/baseinfo/binbitview',
+      name: 'binbitview',
+      component: () => import('@/views/baseinfo/BinBitView'),
+      meta: { title: '库位视图' }
+    },
+    {
+      path: '/baseinfo/goodsmanagement',
+      name: 'goodsmanagement',
+      component: () => import('@/views/baseinfo/GoodsManagement'),
+      meta: { title: '货品管理' }
+    },
+    {
+      path: '/baseinfo/itemtypemanagement',
+      name: 'itemtypemanagement',
+      component: () => import('@/views/baseinfo/ItemTypeManagement'),
+      meta: { title: '货品类型管理' }
+    }
+    ]
   },
 
   // 404 page must be placed at the end !!!
