@@ -1,9 +1,8 @@
 import request from '@/utils/request'
 
-export function GetWarehouseList(params) {
+export function GetWarehouseList() {
     return request({
-      url: '/outbound/list',
+      url: 'ips/outbound/pageDetail',
       method: 'get',
-      params
     })
   }
