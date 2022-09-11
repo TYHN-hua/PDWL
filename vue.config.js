@@ -36,6 +36,12 @@ module.exports = {
       warnings: false,
       errors: true
     },
+    proxy: {
+      '/api': {
+        target: 'http://www-wms-java.itheima.net/',
+        changeOrigin: true
+      }
+    }
     // before: require('./mock/mock-server.js') 注释模拟数据
   },
   configureWebpack: {
@@ -59,10 +65,8 @@ module.exports = {
         include: 'initial'
       }
     ])
-
     // when there are many pages, it will cause too many meaningless requests
     config.plugins.delete('prefetch')
-
     // set svg-sprite-loader
     config.module
       .rule('svg')
@@ -79,7 +83,6 @@ module.exports = {
         symbolId: 'icon-[name]'
       })
       .end()
-
     config
       .when(process.env.NODE_ENV !== 'development',
         config => {
@@ -87,7 +90,7 @@ module.exports = {
             .plugin('ScriptExtHtmlWebpackPlugin')
             .after('html')
             .use('script-ext-html-webpack-plugin', [{
-            // `runtime` must same as runtimeChunk name. default is `runtime`
+              // `runtime` must same as runtimeChunk name. default is `runtime`
               inline: /runtime\..*\.js$/
             }])
             .end()

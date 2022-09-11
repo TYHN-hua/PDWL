@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import OutboundManagement  from './modules/OutboundManagement'
 
 Vue.use(Router)
 
@@ -7,7 +8,7 @@ Vue.use(Router)
 import Layout from '@/layout'
 
 // 引入自己组件的路由，放到这个数组里
-const asyncRouter = []
+const asyncRouter = [OutboundManagement,]
 
 /**
  * Note: sub-menu only appear when route children.length >= 1

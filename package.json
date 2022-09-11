@@ -58,5 +58,17 @@
     "node": ">=8.9",
     "npm": ">= 3.0.0"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "main": ".eslintrc.js",
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TYHN-hua/PDWL.git"
+  },
+  "bugs": {
+    "url": "https://github.com/TYHN-hua/PDWL/issues"
+  },
+  "homepage": "https://github.com/TYHN-hua/PDWL#readme"
 }
