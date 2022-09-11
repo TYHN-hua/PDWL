@@ -1,32 +1,63 @@
 <template>
   <div style="padding:20px">
     <search search-two="仓库名称" search-three="仓库状态" />
-    <list style="margin-top:20px" :warehouse-list="warehouseList" />
+    <warehouseList style="margin-top:20px" :warehouse-list="warehouseList" />
+    <page style="margin-top:20px" :page.sync="page" @pageSizeChange="pageSizeChange" @currentChange="currentChange" />
   </div>
 </template>
 
 <script>
 import search from './components/search.vue'
-import list from './components/list.vue'
-import { getAllWarehouse } from '@/api/warehouse'
+import warehouseList from './components/warehouseList.vue'
+import page from './components/page.vue'
+import { getWarehouseByPage } from '@/api/warehouse'
 export default {
   components: {
     search,
-    list
+    warehouseList,
+    page
   },
   data() {
     return {
-      warehouseList: []
+      warehouseList: [],
+      // warehouseInfo: {},
+      page: {
+        like_code: '',
+        like_name: '',
+        current: 1,
+        size: 10,
+        descs: '',
+        total: ''
+      }
     }
   },
   created() {
-    this.getAllWarehouse()
+    this.getWarehouseByPage()
   },
   methods: {
-    async getAllWarehouse() {
-      const res = await getAllWarehouse()
-      // this.warehouseList = data
-      console.log(res)
+    // async getAllWarehouse() {
+    //   const { data } = await getAllWarehouse()
+    //   this.warehouseList = data
+    //   console.log(data)
+    // },
+    async getWarehouseByPage() {
+      const { data } = await getWarehouseByPage(this.page)
+      this.warehouseList = data.records
+      this.warehouseInfo = data
+      this.page.current = data.current
+      this.page.total = data.total
+      this.page.size = data.size
+      // console.log(this.warehouseList)
+    },
+    pageSizeChange(size) {
+      this.page.size = size
+      delete this.page.total
+      this.getWarehouseByPage()
+    },
+    currentChange(current) {
+      this.page.current = current
+      delete this.page.total
+      this.getWarehouseByPage()
     }
   }
 }

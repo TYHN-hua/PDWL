@@ -1,12 +1,13 @@
 <template>
   <div>
     <el-card>
+      <el-button type="primary" style="margin-bottom:20px;background-color:#00be76;border:unset" round @click="$router.push(`/baseinfo/detail/${a}`)">{{ typeName }}</el-button>
       <template>
         <el-table
           :data="warehouseList"
           border
           style="width: 100%"
-          :ell-style="tableStyle"
+          :header-cell-style="tableStyle"
         >
           <el-table-column
             type="index"
@@ -87,7 +88,7 @@
             width="180"
           >
             <template slot-scope="scope">
-              <el-button style="color:#ffb200" type="text" size="small" @click="handleClick(scope.row)">编辑</el-button>
+              <el-button style="color:#ffb200" type="text" size="small" @click="edit(scope.row.id)">编辑</el-button>
               <el-button style="color:#ffb200" type="text" size="small">停用</el-button>
               <el-button style="color:#ffb200" type="text" size="small">删除</el-button>
             </template>
@@ -99,26 +100,36 @@
 </template>
 
 <script>
+import { getWarehouseDetailById } from '@/api/warehouse'
 export default {
   props: {
     warehouseList: {
       type: Array,
       default: () => ([])
+    },
+    typeName: {
+      type: String,
+      default: '新增仓库'
     }
   },
 
   data() {
     return {
-
+      a: null,
+      formData: {}
     }
   },
   methods: {
-    handleClick(row) {
-      console.log(row)
+    async edit(id) {
+      this.$router.push(`/baseinfo/detail/${id}`)
+      const { data } = await getWarehouseDetailById(id)
+      this.$store.dispatch('warehouse/settingHouseDetail', data)
+      // console.log(res)
     },
     tableStyle() {
-      return 'background-color: #f9f6ee;'
+      return 'background-color: #f9f6ee'
     }
+
   }
 }
 </script>

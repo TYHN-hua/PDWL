@@ -101,6 +101,13 @@ export const constantRoutes = [
       name: 'itemtypemanagement',
       component: () => import('@/views/baseinfo/ItemTypeManagement'),
       meta: { title: '货品类型管理' }
+    },
+    {
+      path: '/baseinfo/detail/:id',
+      name: 'addWarehouse',
+      component: () => import('@/views/baseinfo/addWarehouse'),
+      hidden: true,
+      meta: { title: '添加仓库' }
     }
     ]
   },
