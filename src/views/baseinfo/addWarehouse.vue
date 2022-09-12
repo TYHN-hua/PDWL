@@ -87,7 +87,7 @@
 
 <script>
 import { regionData, CodeToText } from 'element-china-area-data'
-import { getNewCode, addNewWarehouse } from '@/api/warehouse'
+import { getNewCode, addNewWarehouse, changeWarehouseStatus } from '@/api/warehouse'
 export default {
   data() {
     return {
@@ -160,10 +160,14 @@ export default {
       try {
         await this.$refs.formData.validate()
         this.loading = true
-        const res = await addNewWarehouse(this.formData)
-        this.$message.success('添加成功')
+        if (this.$route.path.slice(-4) === 'null') {
+          await addNewWarehouse(this.formData)
+          this.$message.success('添加成功')
+        } else {
+          await changeWarehouseStatus(this.formData)
+          this.$message.success('编辑成功')
+        }
         this.$router.back()
-        console.log(res)
       } catch (e) {
         console.log(e)
       } finally {
@@ -180,6 +184,10 @@ export default {
       this.$router.back()
       this.formData.code = ''
     }
+    // async changeWarehouseStatus() {
+    //   const res = await changeWarehouseStatus(this.formData)
+    //   console.log(res)
+    // }
 
   }
 

@@ -89,8 +89,8 @@
           >
             <template slot-scope="scope">
               <el-button style="color:#ffb200" type="text" size="small" @click="edit(scope.row.id)">编辑</el-button>
-              <el-button style="color:#ffb200" type="text" size="small">停用</el-button>
-              <el-button style="color:#ffb200" type="text" size="small">删除</el-button>
+              <el-button style="color:#ffb200" type="text" size="small" @click="changeWarehouseStatus(scope.row)">{{ scope.row.status? '停用': '启用' }}</el-button>
+              <el-button style="color:#ffb200" type="text" size="small" @click="delWarehouse(scope.row.id)">删除</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -100,7 +100,7 @@
 </template>
 
 <script>
-import { getWarehouseDetailById } from '@/api/warehouse'
+import { getWarehouseDetailById, changeWarehouseStatus, delWarehouse } from '@/api/warehouse'
 export default {
   props: {
     warehouseList: {
@@ -124,12 +124,39 @@ export default {
       this.$router.push(`/baseinfo/detail/${id}`)
       const { data } = await getWarehouseDetailById(id)
       this.$store.dispatch('warehouse/settingHouseDetail', data)
-      // console.log(res)
+      // console.log(id)
     },
     tableStyle() {
       return 'background-color: #f9f6ee'
-    }
+    },
 
+    async changeWarehouseStatus(row) {
+      try {
+        var data = {
+          id: row.id
+        }
+        if (row.status === 1) {
+          data.status = 0
+        } else {
+          data.status = 1
+        }
+        await changeWarehouseStatus(data)
+        this.$message.success('修改成功')
+        location.reload()
+      } catch (e) {
+        console.log(e)
+      }
+    },
+    async delWarehouse(id) {
+      try {
+        await this.$confirm('确定删除吗', '提示', { type: 'warning' })
+        await delWarehouse(id)
+        this.$message.success('删除成功')
+        location.reload()
+      } catch (e) {
+        console.log(e)
+      }
+    }
   }
 }
 </script>

@@ -40,3 +40,25 @@ export function getWarehouseDetailById(id) {
 
   })
 }
+
+// 修改仓库状态
+export function changeWarehouseStatus(data) {
+  return request({
+    method: 'PUT',
+    url: '/api/warehouse',
+    data
+  })
+}
+
+// 删除仓库
+export function delWarehouse(id) {
+  return request({
+    method: 'DELETE',
+    url: '/api/warehouse',
+    params: {
+
+      ids: [id]
+    }
+
+  })
+}

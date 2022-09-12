@@ -1,6 +1,6 @@
 <template>
   <div style="padding:20px">
-    <search search-two="仓库名称" search-three="仓库状态" />
+    <search search-two="仓库名称" search-three="仓库状态" @search="search" />
     <warehouseList style="margin-top:20px" :warehouse-list="warehouseList" />
     <page style="margin-top:20px" :page.sync="page" @pageSizeChange="pageSizeChange" @currentChange="currentChange" />
   </div>
@@ -25,6 +25,7 @@ export default {
         like_code: '',
         like_name: '',
         current: 1,
+        status: '',
         size: 10,
         descs: '',
         total: ''
@@ -56,6 +57,12 @@ export default {
     },
     currentChange(current) {
       this.page.current = current
+      delete this.page.total
+      this.getWarehouseByPage()
+    },
+    search(val) {
+      this.page = { ...this.page, ...val }
+      console.log(this.page)
       delete this.page.total
       this.getWarehouseByPage()
     }
