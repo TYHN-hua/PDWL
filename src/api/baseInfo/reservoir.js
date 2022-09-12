@@ -8,3 +8,11 @@ export function getAllWarehouse(params) {
   })
 }
 
+// 获取下一个库区编号
+export function getNextCodeofKQ() {
+  return request({
+    url: '/api/codeFactory/next/KQ'
+
+  })
+}
+

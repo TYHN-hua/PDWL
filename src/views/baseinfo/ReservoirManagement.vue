@@ -1,7 +1,7 @@
 <template>
   <div style="padding:20px">
     <search search-two="库区名称" search-three="仓库状态" @search="search" />
-    <reservoirList style="margin-top:20px" :warehouse-list="reservoirList" />
+    <reservoirList style="margin-top:20px" :reservoir-list="reservoirList" />
     <page style="margin-top:20px" :page.sync="page" @pageSizeChange="pageSizeChange" @currentChange="currentChange" />
   </div>
 </template>
@@ -10,7 +10,7 @@
 import search from './components/search.vue'
 import reservoirList from './components/reservoirList.vue'
 import page from './components/page.vue'
-import { getWarehouseByPage } from '@/api/baseInfo/warehouse'
+import { getAllWarehouse } from '@/api/baseInfo/reservoir'
 export default {
   components: {
     search,
@@ -33,7 +33,7 @@ export default {
     }
   },
   created() {
-    this.getWarehouseByPage()
+    this.getAllWarehouse()
   },
   methods: {
     // async getAllWarehouse() {
@@ -41,14 +41,14 @@ export default {
     //   this.warehouseList = data
     //   console.log(data)
     // },
-    async getWarehouseByPage() {
-      const { data } = await getWarehouseByPage(this.page)
-      this.reservoirList = data
-      this.warehouseInfo = data
+    async getAllWarehouse() {
+      const { data } = await getAllWarehouse(this.page)
+      this.reservoirList = data.records
+      this.reservoirInfo = data
       this.page.current = data.current
       this.page.total = data.total
       this.page.size = data.size
-      // console.log(this.warehouseList)
+      console.log(data)
     },
     pageSizeChange(size) {
       this.page.size = size

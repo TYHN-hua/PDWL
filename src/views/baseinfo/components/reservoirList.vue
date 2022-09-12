@@ -1,10 +1,15 @@
 <template>
   <div>
     <el-card>
-      <el-button type="primary" style="margin-bottom:20px;background-color:#00be76;border:unset" round @click="$router.push(`/baseinfo/detail/${a}`)">新增仓库</el-button>
+      <el-button
+        type="primary"
+        style="margin-bottom:20px;background-color:#00be76;border:unset"
+        round
+        @click="$router.push(`/baseinfo/reservoirDetail/${a}`)"
+      >新增库区</el-button>
       <template>
         <el-table
-          :data="warehouseList"
+          :data="reservoirList"
           border
           style="width: 100%"
           :header-cell-style="tableStyle"
@@ -16,62 +21,62 @@
             align="center"
           />
           <el-table-column
+            prop="warehouseName"
+            label="所属仓库"
+            width="150"
+            align="center"
+          />
+          <el-table-column
             prop="code"
-            label="仓库编码"
+            label="仓库编号"
             width="150"
             align="center"
           />
           <el-table-column
             prop="name"
-            label="仓库名称"
+            label="库区名称"
             width="152"
             align="center"
           />
           <el-table-column
-            prop="type"
-            label="仓库类型"
+            prop="tempeartureType"
+            label="温度类型"
             width="150"
             align="center"
           />
           <el-table-column
-            prop="location"
+            prop="bearingType"
             width="200"
-            label="省/市/区"
+            label="承重类型"
             align="center"
           />
           <el-table-column
-            prop="address"
-            label="详细地址"
+            prop="useType"
+            label="用途属性"
             width="150"
             align="center"
           />
           <el-table-column
-            prop="zip"
-            label="仓库状态"
-            align="center"
-            width="150"
-          />
-          <el-table-column
-            prop="surface"
-            label="仓库面积㎡"
-            align="center"
-            width="150"
-          />
-          <el-table-column
-            prop="includedNum"
-            label="库区数量"
+            prop="status"
+            label="库区状态"
             align="center"
             width="150"
           />
           <el-table-column
             prop="personName"
             label="负责人"
-            width="150"
             align="center"
+            width="150"
           />
           <el-table-column
             prop="phone"
             label="联系电话"
+            align="center"
+            width="150"
+          />
+          <el-table-column
+            prop="includedNum"
+            label="库位数量"
             align="center"
             width="150"
           />
@@ -103,7 +108,7 @@
 import { getWarehouseDetailById, changeWarehouseStatus, delWarehouse } from '@/api/baseInfo/warehouse'
 export default {
   props: {
-    warehouseList: {
+    reservoirList: {
       type: Array,
       default: () => ([])
     }

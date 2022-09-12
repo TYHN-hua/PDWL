@@ -74,7 +74,7 @@ export const constantRoutes = [
     },
     {
       path: '/baseinfo/reservoirmanagement',
-      name: 'warehousemanagement',
+      name: 'reservoirmanagement',
       component: () => import('@/views/baseinfo/ReservoirManagement'),
       meta: { title: '库区管理' }
     },
@@ -106,6 +106,13 @@ export const constantRoutes = [
       path: '/baseinfo/detail/:id',
       name: 'addWarehouse',
       component: () => import('@/views/baseinfo/addWarehouse'),
+      hidden: true,
+      meta: { title: '添加仓库' }
+    },
+    {
+      path: '/baseinfo/reservoirDetail/:id',
+      name: 'addReservoir',
+      component: () => import('@/views/baseinfo/addReservoir'),
       hidden: true,
       meta: { title: '添加仓库' }
     }

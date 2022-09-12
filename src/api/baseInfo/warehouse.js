@@ -1,10 +1,10 @@
 import request from '@/utils/request'
 
 // 获取所有仓库
-export function getAllWarehouse() {
+export function getAllWarehouse(params) {
   return request({
-    url: '/api/warehouse/list'
-
+    url: '/api/warehouse/list',
+    params
   })
 }
 
