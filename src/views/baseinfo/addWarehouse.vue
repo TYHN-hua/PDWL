@@ -87,7 +87,7 @@
 
 <script>
 import { regionData, CodeToText } from 'element-china-area-data'
-import { getNewCode, addNewWarehouse, changeWarehouseStatus } from '@/api/warehouse'
+import { getNewCode, addNewWarehouse, changeWarehouseStatus } from '@/api/baseInfo/warehouse'
 export default {
   data() {
     return {

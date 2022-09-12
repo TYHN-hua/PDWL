@@ -10,7 +10,7 @@
 import search from './components/search.vue'
 import warehouseList from './components/warehouseList.vue'
 import page from './components/page.vue'
-import { getWarehouseByPage } from '@/api/warehouse'
+import { getWarehouseByPage } from '@/api/baseInfo/warehouse'
 export default {
   components: {
     search,
