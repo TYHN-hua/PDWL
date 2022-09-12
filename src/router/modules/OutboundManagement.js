@@ -12,7 +12,12 @@ export default {
       path: 'outboundDeliveryOrder',
       name: 'outboundDeliveryOrder',
       component: () => import('@/views/OutboundManagement/components/outboundDeliveryOrder'),
-      meta: { title: '出库单' }
+      meta: { title: '出库单' },
+    },
+    {
+      path: 'outboundDeliveryOrder/NewOrder',
+      component: () => import('@/views/OutboundManagement/components/NewOrder'),
+      meta: { title: '新增出库' },
     },
     {
       path: 'PickUpTheTask',
@@ -24,7 +29,7 @@ export default {
       path: 'HandoverTask',
       name: 'HandoverTask',
       component: () => import('@/views/OutboundManagement/components/HandoverTask'),
-      meta: { title: '拣货任务' }
-    }
+      meta: { title: '拣货任务' } 
+    },
   ]
 }

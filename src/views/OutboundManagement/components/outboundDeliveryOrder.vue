@@ -1,3 +1,5 @@
+// 出库单
+
 <template>
   <div class="main">
     <div class="search">
@@ -19,7 +21,7 @@
     </div>
     <div class="result">
       <div>
-        <el-button type="success" round style="margin:20px 0 20px 30px">新增出库单</el-button>
+        <el-button type="success" round style="margin:20px 0 20px 30px" @click="toNewOrder">新增出库单</el-button>
       </div>
       <!-- 表格 -->
       <el-table :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" border style="width: 100%"
@@ -75,6 +77,7 @@
     </el-pagination>
   </div>
     </div>
+    <NewOrder></NewOrder>
   </div>
 </template>
   
@@ -82,9 +85,6 @@
 import { GetWarehouseList } from '@/api/OutboundManagement'
 
 export default {
-  components: {
-
-  },
   name: 'outboundDeliveryOrder',
   //
   data() {
@@ -103,6 +103,9 @@ export default {
     this.GetWarehouseList()
   },
   methods: {
+    toNewOrder() {
+      this.$router.push('/OutboundManagement/outboundDeliveryOrder/NewOrder')
+    },
       filterHandler(value, row, column) {
         const property = column['property'];
         return row[property] === value;
