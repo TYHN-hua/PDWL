@@ -9,9 +9,9 @@
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item prop="warehouseName" label="所属仓库">
-              <el-select v-model="formData.warehouseName" placeholder="请选择" style="width:100%" value-key="id">
-                <el-option v-for="item in warehouseList" :key="item.id" :label="item.name" :value="item.type" />
+            <el-form-item prop="warehouseId" label="所属仓库">
+              <el-select v-model="formData.warehouseId" placeholder="请选择" style="width:100%" value-key="id">
+                <el-option v-for="(item) in warehouseList" :key="item.id" :label="item.name" :value="item.id" />
               </el-select>
             </el-form-item>
           </el-col>
@@ -21,12 +21,11 @@
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item prop="tempeartureType" label="温度类型">
-              <el-select v-model="formData.tempeartureType" placeholder="请选择" style="width:100%">
-                <el-option label="中转仓" value="ZZ" />
-                <el-option label="加工仓" value="JG" />
-                <el-option label="储备仓" value="CB" />
-                <el-option label="冷藏仓" value="LC" />
+            <el-form-item prop="temperatureType" label="温度类型">
+              <el-select v-model="formData.temperatureType" placeholder="请选择" style="width:100%">
+                <el-option label="常温" value="CW" />
+                <el-option label="冷藏" value="LC" />
+                <el-option label="恒温" value="HW" />
               </el-select>
             </el-form-item>
           </el-col>
@@ -35,20 +34,20 @@
           <el-col :span="6">
             <el-form-item prop="bearingType" label="承重类型">
               <el-select v-model="formData.bearingType" placeholder="请选择" style="width:100%">
-                <el-option label="中转仓" value="ZZ" />
-                <el-option label="加工仓" value="JG" />
-                <el-option label="储备仓" value="CB" />
-                <el-option label="冷藏仓" value="LC" />
+                <el-option label="重型" value="ZX" />
+                <el-option label="轻型" value="QX" />
+                <el-option label="中型" value="BX" />
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item prop="useType" label="用途属性">
               <el-select v-model="formData.useType" placeholder="请选择" style="width:100%">
-                <el-option label="中转仓" value="ZZ" />
-                <el-option label="加工仓" value="JG" />
-                <el-option label="储备仓" value="CB" />
-                <el-option label="冷藏仓" value="LC" />
+                <el-option label="入库缓存区" value="RKHCQ" />
+                <el-option label="出库缓存区" value="CKHCQ" />
+                <el-option label="存储区" value="CCQ" />
+                <el-option label="分拣区" value="FJQ" />
+                <el-option label="质检区" value="ZJQ" />
               </el-select>
             </el-form-item>
           </el-col>
@@ -87,7 +86,7 @@
 </template>
 
 <script>
-import { getNextCodeofKQ } from '@/api/baseInfo/reservoir'
+import { getNextCodeofKQ, addNewReservoir } from '@/api/baseInfo/reservoir'
 import { getAllWarehouse } from '@/api/baseInfo/warehouse'
 export default {
   data() {
@@ -112,10 +111,10 @@ export default {
         name: [
           { required: true, message: '请输入库区名称', trigger: 'blur' }
         ],
-        type: [
+        useType: [
           { required: true, message: '请选择用途属性', trigger: 'change' }
         ],
-        warehouseName: [
+        warehouseId: [
           { required: true, message: '请选择所属仓库', trigger: 'change' }
         ],
         temperatureType: [
@@ -153,10 +152,19 @@ export default {
       console.log(data)
     },
     back() {
-      this.$router.back()
+      this.$refs.formData.resetFields()
+      this.$router.push('baseinfo/reservoirmanagement')
     },
-    submit() {
-      console.log(1)
+    async submit() {
+      try {
+        await this.$refs.formData.validate()
+        const res = await addNewReservoir(this.formData)
+        this.$message.success('添加成功')
+        this.$router.back()
+        console.log(res)
+      } catch (e) {
+        console.log(e)
+      }
     }
   }
 }

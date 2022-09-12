@@ -22,13 +22,11 @@ export default {
       reservoirList: [],
       // warehouseInfo: {},
       page: {
-        like_code: '',
-        like_name: '',
+        id: '',
         current: 1,
-        status: '',
+        warehouseName: '',
         size: 10,
-        descs: '',
-        total: ''
+        name: ''
       }
     }
   },

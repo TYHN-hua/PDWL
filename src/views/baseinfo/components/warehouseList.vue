@@ -46,11 +46,13 @@
             align="center"
           />
           <el-table-column
-            prop="zip"
+            prop="status"
             label="仓库状态"
             align="center"
             width="150"
-          />
+          >
+            <template slot-scope="scope">{{ scope.row.status | ToStatus }}</template>
+          </el-table-column>
           <el-table-column
             prop="surface"
             label="仓库面积㎡"

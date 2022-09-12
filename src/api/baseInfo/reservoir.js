@@ -16,3 +16,12 @@ export function getNextCodeofKQ() {
   })
 }
 
+// 新建一个库区
+export function addNewReservoir(data) {
+  return request({
+    url: '/api/area',
+    method: 'POST',
+    data
+
+  })
+}

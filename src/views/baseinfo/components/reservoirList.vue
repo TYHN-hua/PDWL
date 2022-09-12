@@ -39,29 +39,36 @@
             align="center"
           />
           <el-table-column
-            prop="tempeartureType"
+            prop="temperatureType"
             label="温度类型"
             width="150"
             align="center"
-          />
+          >
+            <template slot-scope="scope">{{ scope.row.temperatureType | ToTemperatureType }}</template>
+          </el-table-column>
           <el-table-column
             prop="bearingType"
             width="200"
             label="承重类型"
             align="center"
-          />
+          >
+            <template slot-scope="scope">{{ scope.row.bearingType | TobearingType }}</template></el-table-column>
           <el-table-column
             prop="useType"
             label="用途属性"
             width="150"
             align="center"
-          />
+          >
+            <template slot-scope="scope">{{ scope.row.useType | ToUseType }}</template>
+          </el-table-column>
           <el-table-column
             prop="status"
             label="库区状态"
             align="center"
             width="150"
-          />
+          >
+            <template slot-scope="scope">{{ scope.row.status | ToStatus }}</template>
+          </el-table-column>
           <el-table-column
             prop="personName"
             label="负责人"
