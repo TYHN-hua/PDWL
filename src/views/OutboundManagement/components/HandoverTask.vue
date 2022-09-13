@@ -1,3 +1,4 @@
+// 出库单
 <template>
   <div class="main">
     <div class="search">
@@ -18,44 +19,42 @@
       </div>
     </div>
     <div class="result">
-      <div>
-        <el-button type="success" round style="margin:20px 0 20px 30px">新增出库单</el-button>
-      </div>
+
       <!-- 表格 -->
       <el-table :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" border style="width: 100%"
-        :header-cell-style="{ background: 'rgb(249,246,238)',color:'#909399'}" 
+        :header-cell-style="{ background: 'rgb(249,246,238)',color:'#909399','text-align':'center'}" 
         :row-class-name="tableRowClassName" 
         :row-style="{ height: '0px'}"
-        :cell-style="{padding: '0px'}"
+        :cell-style="{padding: '0px','text-align':'center'}"
         :default-sort = "{prop: 'date', order: 'descending'}"
-        >
+        > 
         <el-table-column type="index" label="序号" width="50">
         </el-table-column>
         <el-table-column prop="code" label="出库单号" width="150">
         </el-table-column>
-        <el-table-column prop="province" label="货主运单编号" width="150">
+        <el-table-column prop="billCode" label="货主运单编号" width="150">
         </el-table-column>
-        <el-table-column prop="status" label="出库类型" width="150">
+        <el-table-column prop="type" label="出库类型" width="150">
         </el-table-column>
-        <el-table-column prop="personNa me" label="货主名称" width="150">
+        <el-table-column prop="ownerName" label="货主名称" width="150">
         </el-table-column>
-        <el-table-column prop="warehouseId" label="出库仓库" width="200">
+        <el-table-column prop="warehouseName" label="出库仓库" width="200">
         </el-table-column>
-        <el-table-column prop="areaId" label="出库库区" width="200">
+        <el-table-column prop="waveStatus" label="出库库区" width="200">
         </el-table-column>
-        <el-table-column prop="planOutTime" label="计划出库时间" width="150" sortable>
+        <el-table-column prop="planOutTime" label="计划出库时间" width="200" sortable>
         </el-table-column>
         <el-table-column prop="goodsNum" label="货品数量" width="150" sortable>
         </el-table-column>
-        <el-table-column prop="status" label="出库单状态" width="150" 
+        <el-table-column prop="waveStatus" label="出库单状态" width="150" 
         :filters="[{text: '新建', value: '1'}, {text: '拣货中', value: '2'}, {text: '已取消', value: '3'}, {text: '拣货完成', value: '4'},{text: '交接中', value: '5'},{text: '交接完成', value: '6'}]"
         :filter-method="filterHandler">
         </el-table-column>
-        <el-table-column prop="createName" label="创建人" width="150">
+        <el-table-column prop="updateName" label="创建人" width="150">
         </el-table-column>
-        <el-table-column prop="createTime" label="创建时间" width="150">
+        <el-table-column prop="updateTime" label="创建时间" width="200">
         </el-table-column>
-        <el-table-column fixed="right" label="操作">
+        <el-table-column fixed="right" label="操作" width="200">
           <template slot-scope="scope" >
             <el-button @click="handleClick(scope.row)" type="text" size="small" style="color:#ffb200;">查看详情</el-button>
             <el-button type="text" size="small"></el-button>
@@ -75,15 +74,15 @@
     </el-pagination>
   </div>
     </div>
+    <NewOrder></NewOrder>
   </div>
 </template>
   
 <script>
-import { GetWarehouseList } from '@/api/OutboundManagement'
+import { GetHandoverList } from '@/api/OutboundManagement'
 
 export default {
-
-  name: 'HandoverTask',
+  name: 'outboundDeliveryOrder',
   //
   data() {
     return {
@@ -98,9 +97,12 @@ export default {
     }
   },
   mounted() {
-    this.GetWarehouseList()
+    this.GetHandoverList()
   },
   methods: {
+    toNewOrder() {
+      this.$router.push('/OutboundManagement/outboundDeliveryOrder/NewOrder')
+    },
       filterHandler(value, row, column) {
         const property = column['property'];
         return row[property] === value;
@@ -143,12 +145,12 @@ export default {
   //   await getSearch()
 
   // },
-  async GetWarehouseList() {
+  async GetHandoverList() {
     console.log('=============');
-    const { data } = await GetWarehouseList()
-    this.tableData = data
+    const  data  = await GetHandoverList()
+    this.tableData = data.data.records
     console.log(data);
-    },
+  },
   
   tableRowClassName({ row, rowIndex }) {
       if (rowIndex % 2 == 0) {

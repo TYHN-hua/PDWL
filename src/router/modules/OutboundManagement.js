@@ -18,6 +18,7 @@ export default {
       path: 'outboundDeliveryOrder/NewOrder',
       component: () => import('@/views/OutboundManagement/components/NewOrder'),
       meta: { title: '新增出库' },
+      hidden: true
     },
     {
       path: 'PickUpTheTask',
@@ -29,7 +30,7 @@ export default {
       path: 'HandoverTask',
       name: 'HandoverTask',
       component: () => import('@/views/OutboundManagement/components/HandoverTask'),
-      meta: { title: '拣货任务' } 
+      meta: { title: '交接任务' } 
     },
   ]
 }

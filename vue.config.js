@@ -37,7 +37,7 @@ module.exports = {
       errors: true
     },
     proxy: {
-      '/api': {
+      '/': {
         target: 'http://www-wms-java.itheima.net/',
         changeOrigin: true
       }
