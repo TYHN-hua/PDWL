@@ -16,3 +16,10 @@ export function getLocationDetail(params) {
 
   })
 }
+
+// 获取下一个库位编号
+export function getNextCodeOfKW() {
+  return request({
+    url: '/api/codeFactory/next/KW'
+  })
+}

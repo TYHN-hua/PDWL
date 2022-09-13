@@ -10,7 +10,7 @@
 import search from './components/search.vue'
 import reservoirList from './components/reservoirList.vue'
 import page from './components/page.vue'
-import { getAllWarehouse } from '@/api/baseInfo/reservoir'
+import { getAllReservoir } from '@/api/baseInfo/reservoir'
 export default {
   components: {
     search,
@@ -31,16 +31,16 @@ export default {
     }
   },
   created() {
-    this.getAllWarehouse()
+    this.getAllReservoir()
   },
   methods: {
-    // async getAllWarehouse() {
-    //   const { data } = await getAllWarehouse()
+    // async getAllReservoir() {
+    //   const { data } = await getAllReservoir()
     //   this.warehouseList = data
     //   console.log(data)
     // },
-    async getAllWarehouse() {
-      const { data } = await getAllWarehouse(this.page)
+    async getAllReservoir() {
+      const { data } = await getAllReservoir(this.page)
       this.reservoirList = data.records
       this.reservoirInfo = data
       this.page.current = data.current
@@ -51,18 +51,18 @@ export default {
     pageSizeChange(size) {
       this.page.size = size
       delete this.page.total
-      this.getAllWarehouse()
+      this.getAllReservoir()
     },
     currentChange(current) {
       this.page.current = current
       delete this.page.total
-      this.getAllWarehouse()
+      this.getAllReservoir()
     },
     search(val) {
       this.page = { ...this.page, ...val }
       console.log(this.page)
       delete this.page.total
-      this.getAllWarehouse()
+      this.getAllReservoir()
     }
   }
 }

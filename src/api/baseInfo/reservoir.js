@@ -1,7 +1,7 @@
 import request from '@/utils/request'
 
 // 获取库区列表
-export function getAllWarehouse(params) {
+export function getAllReservoir(params) {
   return request({
     url: '/api/area/pageDetail',
     params
@@ -54,3 +54,17 @@ export function delReservoir(id) {
 
   })
 }
+
+// 查询全部库区
+export function getAllReservoirList(id) {
+  return request({
+    method: 'GET',
+    url: '/api/area/list',
+    params: {
+      warehouseId: id,
+      status: 1
+    }
+
+  })
+}
+

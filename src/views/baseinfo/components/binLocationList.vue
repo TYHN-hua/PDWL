@@ -7,7 +7,7 @@
             type="primary"
             style="margin-bottom:20px;background-color:#00be76;border:unset"
             round
-            @click="$router.push(`/baseinfo/reservoirDetail/${a}`)"
+            @click="$router.push(`/baseinfo/addLocation/${a}`)"
           >新增库位</el-button>
         </el-col>
         <div style="display: flex">
@@ -43,14 +43,26 @@
             align="center"
           />
           <el-table-column
+            prop="areaCode"
+            label="库区编号"
+            width="150"
+            align="center"
+          />
+          <el-table-column
+            prop="areaName"
+            label="库区名称"
+            width="152"
+            align="center"
+          />
+          <el-table-column
             prop="code"
-            label="仓库编号"
+            label="库位编号"
             width="150"
             align="center"
           />
           <el-table-column
             prop="name"
-            label="库区名称"
+            label="库位名称"
             width="152"
             align="center"
           />
@@ -79,27 +91,15 @@
           </el-table-column>
           <el-table-column
             prop="status"
-            label="库区状态"
+            label="停用状态"
             align="center"
             width="150"
           >
             <template slot-scope="scope">{{ scope.row.status | ToStatus }}</template>
           </el-table-column>
           <el-table-column
-            prop="personName"
-            label="负责人"
-            align="center"
-            width="150"
-          />
-          <el-table-column
-            prop="phone"
-            label="联系电话"
-            align="center"
-            width="150"
-          />
-          <el-table-column
-            prop="includedNum"
-            label="库位数量"
+            prop="maxNum"
+            label="承载上线"
             align="center"
             width="150"
           />
