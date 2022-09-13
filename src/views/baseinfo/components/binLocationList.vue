@@ -128,7 +128,7 @@
 </template>
 
 <script>
-import { getReservoirInfo, editReservoir, delReservoir } from '@/api/baseInfo/reservoir'
+import { editReservoir, delReservoir } from '@/api/baseInfo/reservoir'
 export default {
   props: {
     binLocationList: {
@@ -144,11 +144,11 @@ export default {
     }
   },
   methods: {
-    async edit(id) {
+    edit(id) {
       this.$router.push(`/baseinfo/reservoirDetail/${id}`)
-      const { data } = await getReservoirInfo(id)
-      this.$store.dispatch('reservoir/settingReservoir', data)
-      console.log(data)
+      // const { data } = await getReservoirInfo(id)
+      // this.$store.dispatch('reservoir/settingReservoir', data)
+      // console.log(data)
     },
     tableStyle() {
       return 'background-color: #f9f6ee'

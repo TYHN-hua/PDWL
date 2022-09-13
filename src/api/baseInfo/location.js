@@ -23,3 +23,20 @@ export function getNextCodeOfKW() {
     url: '/api/codeFactory/next/KW'
   })
 }
+
+// 新增库位
+export function addNewLocation(data) {
+  return request({
+    url: 'api/location',
+    method: 'POST',
+    data
+  })
+}
+
+// 新增库位
+export function getLocationInfo(id) {
+  return request({
+    url: `/api/location/${id}`,
+    method: 'GET'
+  })
+}

@@ -12,7 +12,6 @@
                 :props="optionProps"
                 placeholder="请选择"
                 style="width:100%"
-                @expand-change="handleChange"
               />
             </el-form-item>
           </el-col>
@@ -100,32 +99,32 @@
         </el-row>
         <el-row :gutter="20" style="margin-top:30px" align="bottom" type="flex">
           <el-col :span="4">
-            <el-form-item prop="name" label="库位排/列/层">
+            <el-form-item label="库位排/列/层">
               <el-input v-model="formData.locationRow" placeholder="请输入" style="width:100%" />
             </el-form-item>
           </el-col>
           <el-col :span="4">
-            <el-form-item prop="name">
+            <el-form-item>
               <el-input v-model="formData.locationColumn" placeholder="请输入" style="width:100%" />
             </el-form-item>
           </el-col>
           <el-col :span="4">
-            <el-form-item prop="name">
+            <el-form-item>
               <el-input v-model="formData.locationLayer" placeholder="请输入" style="width:100%" />
             </el-form-item>
           </el-col>
           <el-col :span="4">
-            <el-form-item prop="name" label="库位长/宽/高">
+            <el-form-item label="库位长/宽/高">
               <el-input v-model="formData.locationLength" placeholder="请输入" style="width:100%" />
             </el-form-item>
           </el-col>
           <el-col :span="4">
-            <el-form-item prop="name">
+            <el-form-item>
               <el-input v-model="formData.locationWidth" placeholder="请输入" style="width:100%" />
             </el-form-item>
           </el-col>
           <el-col :span="4">
-            <el-form-item prop="name">
+            <el-form-item>
               <el-input v-model="formData.locationHigh" placeholder="请输入" style="width:100%" />
             </el-form-item>
           </el-col>
@@ -141,9 +140,9 @@
 </template>
 
 <script>
-import { getAllReservoirList, addNewReservoir, editReservoir } from '@/api/baseInfo/reservoir'
+import { getAllReservoirList, editReservoir } from '@/api/baseInfo/reservoir'
 import { getAllWarehouse } from '@/api/baseInfo/warehouse'
-import { getNextCodeOfKW } from '@/api/baseInfo/location'
+import { getNextCodeOfKW, addNewLocation, getLocationInfo } from '@/api/baseInfo/location'
 export default {
   data() {
     return {
@@ -240,12 +239,12 @@ export default {
     }
   },
   created() {
-    // this.getAllWarehouse()
+    this.getLocationInfo()
     if (this.$route.path.slice(-4) === 'null') {
       this.getNextCodeOfKW()
     } else {
-      this.formData = this.$store.state.reservoir.reservoir
-      this.formData.status = this.formData.status.toString()
+      // this.formData = this.$store.state.reservoir.reservoir
+      // this.formData.status = this.formData.status.toString()
       // this.formData.locationCode = []
       // this.formData.locationCode.push(this.formData.province, this.formData.city, this.formData.area)
       // this.isShow = true
@@ -253,9 +252,12 @@ export default {
     }
   },
   methods: {
-    handleChange() {
-      console.log(this.$refs.hahaha)
+    async getLocationInfo() {
+      console.log(this.$router.params.id)
+      const res = await getLocationInfo()
+      console.log(res)
     },
+
     async getNextCodeOfKW() {
       const res = await getNextCodeOfKW()
       this.formData.code = res.data
@@ -276,9 +278,11 @@ export default {
     },
     async submit() {
       try {
+        this.formData.areaId = this.formData.location[1]
+        this.formData.warehouseId = this.formData.location[0]
         await this.$refs.formData.validate()
         if (this.$route.path.slice(-4) === 'null') {
-          await addNewReservoir(this.formData)
+          await addNewLocation(this.formData)
           this.$message.success('添加成功')
         } else {
           await editReservoir(this.formData)
