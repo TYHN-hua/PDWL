@@ -86,7 +86,7 @@
 </template>
 
 <script>
-import { getNextCodeofKQ, addNewReservoir } from '@/api/baseInfo/reservoir'
+import { getNextCodeofKQ, addNewReservoir, editReservoir } from '@/api/baseInfo/reservoir'
 import { getAllWarehouse } from '@/api/baseInfo/warehouse'
 export default {
   data() {
@@ -137,8 +137,17 @@ export default {
     }
   },
   created() {
-    this.getNextCodeofKQ()
     this.getAllWarehouse()
+    if (this.$route.path.slice(-4) === 'null') {
+      this.getNextCodeofKQ()
+    } else {
+      this.formData = this.$store.state.reservoir.reservoir
+      this.formData.status = this.formData.status.toString()
+      // this.formData.locationCode = []
+      // this.formData.locationCode.push(this.formData.province, this.formData.city, this.formData.area)
+      // this.isShow = true
+      console.log(this.formData)
+    }
   },
   methods: {
     async getNextCodeofKQ() {
@@ -149,19 +158,23 @@ export default {
     async getAllWarehouse() {
       const { data } = await getAllWarehouse({ status: 1 })
       this.warehouseList = data
-      console.log(data)
+      // console.log(data)
     },
     back() {
       this.$refs.formData.resetFields()
-      this.$router.push('baseinfo/reservoirmanagement')
+      this.$router.back()
     },
     async submit() {
       try {
         await this.$refs.formData.validate()
-        const res = await addNewReservoir(this.formData)
-        this.$message.success('添加成功')
+        if (this.$route.path.slice(-4) === 'null') {
+          await addNewReservoir(this.formData)
+          this.$message.success('添加成功')
+        } else {
+          await editReservoir(this.formData)
+          this.$message.success('修改库区成功')
+        }
         this.$router.back()
-        console.log(res)
       } catch (e) {
         console.log(e)
       }

@@ -114,7 +114,7 @@ export const constantRoutes = [
       name: 'addReservoir',
       component: () => import('@/views/baseinfo/addReservoir'),
       hidden: true,
-      meta: { title: '添加仓库' }
+      meta: { title: '添加库区' }
     }
     ]
   },

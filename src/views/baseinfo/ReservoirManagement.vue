@@ -46,23 +46,23 @@ export default {
       this.page.current = data.current
       this.page.total = data.total
       this.page.size = data.size
-      console.log(data)
+      // console.log(data)
     },
     pageSizeChange(size) {
       this.page.size = size
       delete this.page.total
-      this.getWarehouseByPage()
+      this.getAllWarehouse()
     },
     currentChange(current) {
       this.page.current = current
       delete this.page.total
-      this.getWarehouseByPage()
+      this.getAllWarehouse()
     },
     search(val) {
       this.page = { ...this.page, ...val }
       console.log(this.page)
       delete this.page.total
-      this.getWarehouseByPage()
+      this.getAllWarehouse()
     }
   }
 }

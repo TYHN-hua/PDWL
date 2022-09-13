@@ -26,7 +26,7 @@ export default {
     }
   },
   created() {
-    console.log(this.page)
+    // console.log(this.page)
   },
   methods: {
     handleSizeChange(val) {

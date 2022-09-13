@@ -8,24 +8,24 @@
             style="margin-bottom:20px;background-color:#00be76;border:unset"
             round
             @click="$router.push(`/baseinfo/reservoirDetail/${a}`)"
-          >新增库区</el-button>
+          >新增库位</el-button>
         </el-col>
         <div style="display: flex">
           <el-button
             type="primary"
             style="margin-bottom:20px;background-color:#f8f5f5;color:black; border:unset"
             round
-          >下载库区模板</el-button>
+          >下载库位模板</el-button>
           <el-button
             type="primary"
             style="margin-bottom:20px;background-color:#f8f5f5;color:black; border:unset"
             round
-          >导入库区信息</el-button>
+          >导入库位信息</el-button>
         </div>
       </el-row>
       <template>
         <el-table
-          :data="reservoirList"
+          :data="binLocationList"
           border
           style="width: 100%"
           :header-cell-style="tableStyle"
@@ -131,7 +131,7 @@
 import { getReservoirInfo, editReservoir, delReservoir } from '@/api/baseInfo/reservoir'
 export default {
   props: {
-    reservoirList: {
+    binLocationList: {
       type: Array,
       default: () => ([])
     }
