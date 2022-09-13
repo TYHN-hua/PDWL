@@ -6,11 +6,13 @@
           <el-col :span="6">
             <el-form-item label="库区" prop="location">
               <el-cascader
+                ref="hahaha"
                 v-model="formData.location"
                 :options="warehouseList"
                 :props="optionProps"
                 placeholder="请选择"
                 style="width:100%"
+                @expand-change="handleChange"
               />
             </el-form-item>
           </el-col>
@@ -151,15 +153,29 @@ export default {
           setTimeout(() => {
             console.log(node, resolve)
             const { level } = node
-            if (level === 1) {
-              let nodes = null
-              getAllReservoirList(node.data.id).then((res) => {
-                console.log(res.data)
+            if (level === 0) {
+              getAllWarehouse().then((res) => {
+                // console.log(res)
                 if (res.data.length > 0) {
-                  nodes = res.data.map((item) => ({
+                  const nodes = res.data.map((item) => ({
                     value: item.id,
                     label: item.name,
-                    leaf: true
+                    leaf: level >= 1
+                  }))
+                  resolve(nodes)
+                } else {
+                  resolve([])
+                }
+              })
+            } else if (level === 1) {
+              console.log(node)
+              getAllReservoirList(node.data.value).then((res) => {
+                // console.log(res.data)
+                if (res.data.length > 0) {
+                  const nodes = res.data.map((item) => ({
+                    value: item.id,
+                    label: item.name,
+                    leaf: level >= 1
                   }))
                   resolve(nodes)
                 } else {
@@ -170,10 +186,8 @@ export default {
               resolve([])
             }
           }, 0)
-        },
-        value: 'id',
-        label: 'name',
-        children: 'children'
+        }
+
       },
       warehouseList: [],
       formData: {
@@ -226,7 +240,7 @@ export default {
     }
   },
   created() {
-    this.getAllWarehouse()
+    // this.getAllWarehouse()
     if (this.$route.path.slice(-4) === 'null') {
       this.getNextCodeOfKW()
     } else {
@@ -239,6 +253,9 @@ export default {
     }
   },
   methods: {
+    handleChange() {
+      console.log(this.$refs.hahaha)
+    },
     async getNextCodeOfKW() {
       const res = await getNextCodeOfKW()
       this.formData.code = res.data
