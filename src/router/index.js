@@ -5,9 +5,10 @@ Vue.use(Router)
 
 /* Layout */
 import Layout from '@/layout'
+import Rolls from '@/router/modules/rolls'
 
 // 引入自己组件的路由，放到这个数组里
-const asyncRouter = []
+const asyncRouter = [Rolls]
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
