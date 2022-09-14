@@ -6,9 +6,7 @@
           <el-col :span="6">
             <el-form-item label="库区" prop="location">
               <el-cascader
-                ref="hahaha"
                 v-model="formData.location"
-                :options="warehouseList"
                 :props="optionProps"
                 placeholder="请选择"
                 style="width:100%"

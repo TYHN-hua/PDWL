@@ -121,7 +121,7 @@ export const constantRoutes = [
       name: 'addLocation',
       component: () => import('@/views/baseinfo/addLocation'),
       hidden: true,
-      meta: { title: '添加库区' }
+      meta: { title: '添加库位' }
     }
     ]
   },
