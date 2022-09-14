@@ -74,7 +74,7 @@
     </el-pagination>
   </div>
     </div>
-    <NewOrder></NewOrder>
+ 
   </div>
 </template>
   
