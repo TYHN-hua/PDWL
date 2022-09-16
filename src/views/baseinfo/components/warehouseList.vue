@@ -1,12 +1,13 @@
 <template>
   <div>
     <el-card>
+      <el-button type="primary" style="margin-bottom:20px;background-color:#00be76;border:unset" round @click="$router.push(`/baseinfo/detail/${a}`)">新增仓库</el-button>
       <template>
         <el-table
           :data="warehouseList"
           border
           style="width: 100%"
-          :ell-style="tableStyle"
+          :header-cell-style="tableStyle"
         >
           <el-table-column
             type="index"
@@ -45,11 +46,13 @@
             align="center"
           />
           <el-table-column
-            prop="zip"
+            prop="status"
             label="仓库状态"
             align="center"
             width="150"
-          />
+          >
+            <template slot-scope="scope">{{ scope.row.status | ToStatus }}</template>
+          </el-table-column>
           <el-table-column
             prop="surface"
             label="仓库面积㎡"
@@ -87,9 +90,9 @@
             width="180"
           >
             <template slot-scope="scope">
-              <el-button style="color:#ffb200" type="text" size="small" @click="handleClick(scope.row)">编辑</el-button>
-              <el-button style="color:#ffb200" type="text" size="small">停用</el-button>
-              <el-button style="color:#ffb200" type="text" size="small">删除</el-button>
+              <el-button style="color:#ffb200" type="text" size="small" @click="edit(scope.row.id)">编辑</el-button>
+              <el-button style="color:#ffb200" type="text" size="small" @click="changeWarehouseStatus(scope.row)">{{ scope.row.status? '停用': '启用' }}</el-button>
+              <el-button style="color:#ffb200" type="text" size="small" @click="delWarehouse(scope.row.id)">删除</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -99,6 +102,7 @@
 </template>
 
 <script>
+import { getWarehouseDetailById, changeWarehouseStatus, delWarehouse } from '@/api/baseInfo/warehouse'
 export default {
   props: {
     warehouseList: {
@@ -109,15 +113,47 @@ export default {
 
   data() {
     return {
-
+      a: null,
+      formData: {}
     }
   },
   methods: {
-    handleClick(row) {
-      console.log(row)
+    async edit(id) {
+      this.$router.push(`/baseinfo/detail/${id}`)
+      const { data } = await getWarehouseDetailById(id)
+      this.$store.dispatch('warehouse/settingHouseDetail', data)
+      // console.log(id)
     },
     tableStyle() {
-      return 'background-color: #f9f6ee;'
+      return 'background-color: #f9f6ee'
+    },
+
+    async changeWarehouseStatus(row) {
+      try {
+        var data = {
+          id: row.id
+        }
+        if (row.status === 1) {
+          data.status = 0
+        } else {
+          data.status = 1
+        }
+        await changeWarehouseStatus(data)
+        this.$message.success('修改成功')
+        location.reload()
+      } catch (e) {
+        console.log(e)
+      }
+    },
+    async delWarehouse(id) {
+      try {
+        await this.$confirm('确定删除吗', '提示', { type: 'warning' })
+        await delWarehouse(id)
+        this.$message.success('删除成功')
+        location.reload()
+      } catch (e) {
+        console.log(e)
+      }
     }
   }
 }
